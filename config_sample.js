@@ -1,5 +1,7 @@
 var config = {};
 
+config.consoleMode = true;
+
 config.luis = {};
 config.luis.appId = "";
 config.luis.appKey = "";
