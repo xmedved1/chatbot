@@ -37,8 +37,8 @@
 
 const LUISClient = require("./luis_sdk");
 
-const APPID = "Enter your Application Id here";
-const APPKEY = "Enter your Subscription Key here";
+const APPID = "acb70500-57cc-4561-97ea-7c8129eca002";
+const APPKEY = "92899c7c14374016a53b280bc94acde5";
 
 var LUISclient = LUISClient({
   appId: APPID,
@@ -46,7 +46,7 @@ var LUISclient = LUISClient({
   verbose: true
 });
 
-LUISclient.predict("Enter the text to predict", {
+LUISclient.predict("Chcem ísť na český film.", {
 
   //On success of prediction
   onSuccess: function (response) {
@@ -60,6 +60,7 @@ LUISclient.predict("Enter the text to predict", {
 });
 
 var printOnSuccess = function (response) {
+  console.log(response);
   console.log("Query: " + response.query);
   console.log("Top Intent: " + response.topScoringIntent.intent);
   console.log("Entities:");
@@ -74,3 +75,33 @@ var printOnSuccess = function (response) {
     }
   }
 };
+
+/*
+var restify = require('restify');
+var builder = require('botbuilder');
+
+//=========================================================
+// Bot Setup
+//=========================================================
+
+// Setup Restify Server
+var server = restify.createServer();
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+    console.log('%s listening to %s', server.name, server.url);
+});
+
+// Create chat bot
+var connector = new builder.ChatConnector({
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
+});
+var bot = new builder.UniversalBot(connector);
+server.post('/api/messages', connector.listen());
+
+//=========================================================
+// Bots Dialogs
+//=========================================================
+
+bot.dialog('/', function (session) {
+    session.send("Hello World");
+});*/
