@@ -52,6 +52,11 @@ function searchVenuesCrossPages(params) {
                     data.venues.forEach(function (venue) {
                         if (venue.city === params.city) {
                             params.venues[venue.id] = venue;
+                        } else {
+                            var cityName = venue.city.split(' ');
+                            if(cityName.indexOf(params.city) !== -1) {
+                                params.venues[venue.id] = venue;
+                            }
                         }
                     });
 

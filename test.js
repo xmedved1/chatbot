@@ -2,7 +2,7 @@ var api = require('./api');
 
 var session = {};
 session.userData = {
-    city: "Praha 1",
+    city: "Praha",
     dateFrom: "2017-03-26",
     dateTo: "2017-03-26"
 };
