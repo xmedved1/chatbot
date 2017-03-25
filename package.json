@@ -1,0 +1,25 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "LUIS ============== LUIS is a service for language understanding that provides intent classification and entity extraction. In order to use the SDK you first need to create and publish an app on www.luis.ai where you will get your appId and appKey and input their values in the sample application file \"sample.js\".",
+  "main": "app.js",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "request": "^2.81.0",
+    "rtrim": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xmedved1/chatbot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xmedved1/chatbot/issues"
+  },
+  "homepage": "https://github.com/xmedved1/chatbot#readme"
+}
