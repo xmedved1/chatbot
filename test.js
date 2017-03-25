@@ -7,6 +7,21 @@ session.userData = {
     dateTo: "2017-03-26"
 };
 
-api.getEvents(session).then(function(res) {
-    console.log(res);
+api.getEvents(session).then(function() {
+    console.log(session.userData.events);
+
+    session.userData.event = "Masaryk";
+
+    api.getPerformances(session).then(function() {
+        console.log("Performances ..... ");
+        console.log(session.userData.performances);
+
+        session.userData.performance = 1101808;
+
+        api.getPerformanceDetail(session).then(function() {
+            console.log("PERFORMANCE DETAIL .............................. ");
+            console.log(session.userData.performanceDetail);
+        });
+    });
+
 });
