@@ -28,6 +28,7 @@ function create(connector) {
 	// starting dialog
 	bot.dialog("/", [
 		function (session, args, next){
+	        session.userData = {};
             builder.Prompts.text(session, 'Nazdar brácho! Čo si jak? Čo by si rád?');
 		},
 		function (session, results) {
@@ -76,7 +77,7 @@ function create(connector) {
 			if(!session.userData.city) {
                 session.beginDialog("/getCity");
 			} else {
-				api.getEvents().then(function() {
+				api.getEvents(session).then(function() {
                     session.beginDialog("/chooseEvent");
 				});
 			}
