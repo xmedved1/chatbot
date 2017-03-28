@@ -1,9 +1,12 @@
 var restify = require('restify');
 var builder = require('botbuilder');
 
-var config = require('./config');
 var bot = require('./bot');
 var api = require('./api');
+
+
+var config = {};
+config.consoleMode = process.env.CONSOLE_MODE;
 
 var serverPort = process.env.OPENSHIFT_NODEJS_PORT || config.port;
 var serverIpAddress = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';

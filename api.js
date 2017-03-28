@@ -1,8 +1,15 @@
 var request = require('request');
 var Promise = require('bluebird');
-var config = require('./config');
 var crypto = require('crypto');
 var rtrim = require('rtrim');
+
+
+var config = {};
+
+config.api = {};
+config.api.pkey = process.env.API_PKEY;
+config.api.apiKey = process.env.API_ID;
+config.api.url = process.env.API_URL;
 
 function joinObj(obj) {
     var ret = "";
