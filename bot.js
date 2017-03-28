@@ -87,12 +87,16 @@ function create(connector) {
             builder.Prompts.text(session, "Mesto?");
         },
         function (session, results) {
-            session.userData.city = results.response;
+        	if(results.response.lenght < 1) {
+                builder.Prompts.text(session, "Nič si nenapísal, skús ešte raz");
+                session.beginDialog("/getCity");
+			} else {
+                session.userData.city = results.response;
 
-			api.getEvents(session).then(function() {
-				session.beginDialog("/chooseEvent");
-			});
-
+                api.getEvents(session).then(function () {
+                    session.beginDialog("/chooseEvent");
+                });
+            }
         }
     ]);
 
@@ -107,11 +111,16 @@ function create(connector) {
             builder.Prompts.text(session, "Vyber si film: \n"+str);
         },
         function (session, results) {
-            session.userData.event = results.response;
+            if(results.response.lenght < 1) {
+                builder.Prompts.text(session, "Nič si nenapísal, skús ešte raz");
+                session.beginDialog("/chooseEvent");
+            } else {
+                session.userData.event = results.response;
 
-            api.getPerformances(session).then(function() {
-                session.beginDialog("/choosePerformance");
-            });
+                api.getPerformances(session).then(function () {
+                    session.beginDialog("/choosePerformance");
+                });
+            }
 
         }
     ]);
@@ -127,13 +136,17 @@ function create(connector) {
             builder.Prompts.text(session, "Vyber si predstavenie: \n"+str);
         },
         function (session, results) {
-            session.userData.performance = results.response;
-            api.getPerformanceDetail(session).then(function() {
-            	var resp = "Ok, parára. Lískty na prestavenie "+session.userData.performanceDetail.title+" si môžeš kúpiť tu: "+ session.userData.performanceDetail.purchase_url;
-                resp += "\n \n Uži si to! ;)"
-            	builder.Prompts.text(session, resp);
-            });
-
+            if(results.response.lenght < 1) {
+                builder.Prompts.text(session, "Nič si nenapísal, skús ešte raz");
+                session.beginDialog("/chooseEvent");
+            } else {
+                session.userData.performance = results.response;
+                api.getPerformanceDetail(session).then(function () {
+                    var resp = "Ok, parára. Lískty na prestavenie " + session.userData.performanceDetail.title + " si môžeš kúpiť tu: " + session.userData.performanceDetail.purchase_url;
+                    resp += "\n \n Uži si to! ;)"
+                    builder.Prompts.text(session, resp);
+                });
+            }
         }
     ]);
 
