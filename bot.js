@@ -22,11 +22,13 @@ function create(connector) {
 
 	var bot = new builder.UniversalBot(connector);
 
+	var emptyString = "Čo tu skúšaš? Nič si nenapísal, skús ešte raz kááámo.";
+
 
 	// starting dialog
 	bot.dialog("/", [
 		function (session, args, next){
-            builder.Prompts.text(session, 'Ahoj, jsem chatbot. Co si přeješ?');
+            builder.Prompts.text(session, 'Nazdar brácho! Čo si jak? Čo by si rád?');
 		},
 		function (session, results) {
 
@@ -57,7 +59,7 @@ function create(connector) {
 
 	bot.dialog("/wantCinema", [
 		function (session){
-			builder.Prompts.text(session, "OK, najdeme ti něco. Kdy chceš jít do kina? Dnes nebo zítra?");
+			builder.Prompts.text(session, "Si zabil! Pome ti niečo násť! Berieš cipušku dnes alebo zajtra?");
 		},
 		function (session, results) {
             var date = dateFormat(new Date(), "yyyy-mm-dd");
@@ -84,11 +86,12 @@ function create(connector) {
 
     bot.dialog("/getCity", [
         function (session){
-            builder.Prompts.text(session, "Mesto?");
+            builder.Prompts.text(session, "Čaaaavo a Mesto?");
         },
         function (session, results) {
-        	if(results.response.lenght < 1) {
-                builder.Prompts.text(session, "Nič si nenapísal, skús ešte raz");
+        	if(results.response.length < 1) {
+                builder.Prompts.text(session, EmptyString);
+                session.endDialog();
                 session.beginDialog("/getCity");
 			} else {
                 session.userData.city = results.response;
@@ -108,11 +111,12 @@ function create(connector) {
                 str += i+") "+name+" \n";
                 i++;
             });
-            builder.Prompts.text(session, "Vyber si film: \n"+str);
+            builder.Prompts.text(session, "A čo filmík? Romantika?: \n"+str);
         },
         function (session, results) {
-            if(results.response.lenght < 1) {
-                builder.Prompts.text(session, "Nič si nenapísal, skús ešte raz");
+            if(results.response.length < 1) {
+                builder.Prompts.text(session, emptyString);
+                session.endDialog();
                 session.beginDialog("/chooseEvent");
             } else {
                 session.userData.event = results.response;
@@ -133,17 +137,18 @@ function create(connector) {
                 str += i+") "+name+" \n";
                 i++;
             });
-            builder.Prompts.text(session, "Vyber si predstavenie: \n"+str);
+            builder.Prompts.text(session, "Už len čas a môžeš vyraziť: \n"+str);
         },
         function (session, results) {
-            if(results.response.lenght < 1) {
-                builder.Prompts.text(session, "Nič si nenapísal, skús ešte raz");
+            if(results.response.length < 1) {
+                builder.Prompts.text(session, emptyString);
+                session.endDialog();
                 session.beginDialog("/chooseEvent");
             } else {
                 session.userData.performance = results.response;
                 api.getPerformanceDetail(session).then(function () {
-                    var resp = "Ok, parára. Lískty na prestavenie " + session.userData.performanceDetail.title + " si môžeš kúpiť tu: " + session.userData.performanceDetail.purchase_url;
-                    resp += "\n \n Uži si to! ;)"
+                    var resp = "Hotofka, si zadelil!. Lískty na filmík " + session.userData.performanceDetail.title + " kúp tu: " + session.userData.performanceDetail.purchase_url;
+                    resp += "\n \n Pro tip: Kúp babenke aj popcorn bráácho ;)";
                     builder.Prompts.text(session, resp);
                 });
             }
