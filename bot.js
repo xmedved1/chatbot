@@ -3,11 +3,8 @@ var LUISClient = require("./luis_sdk");
 var dateFormat = require('dateformat');
 var api = require('./api');
 
-var config = {};
+var config = require('./config');
 
-config.luis = {};
-config.luis.appId = process.env.LUIS_ID;
-config.luis.appKey = process.env.LUIS_KEY;
 
 // LUIS client setup
 var LUISclient = LUISClient({
